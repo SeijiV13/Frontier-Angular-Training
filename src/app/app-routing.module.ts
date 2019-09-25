@@ -5,7 +5,6 @@ import { HomeComponent } from './core/containers/home/home.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'edit-form', loadChildren: () => import('./core/containers/edit-form/edit-form.module').then((m) => m.EditFormModule)}
 ];
 
 @NgModule({
