@@ -1,0 +1,5 @@
+
+<app-card-container class="center" style="width: 50%">
+ <app-user-list card-body [users]="usersList | async" (emitSelectedUser)="execAction($event)"></app-user-list>
+</app-card-container>
+
