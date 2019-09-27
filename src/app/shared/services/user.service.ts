@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 import { User } from '../models/User';
 const BASE_URL ="http://localhost:3000";
@@ -8,6 +8,7 @@ const BASE_URL ="http://localhost:3000";
   providedIn: 'root'
 })
 export class UserService {
+  selectedUserSubject = new BehaviorSubject<User>();
 
   constructor(private http: HttpClient) { }
 
