@@ -7,7 +7,7 @@ import { User } from 'src/app/shared/models/User';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @Input() users;
+  @Input() users: User[];
   constructor() { }
 
   ngOnInit() {
