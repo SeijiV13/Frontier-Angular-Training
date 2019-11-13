@@ -1,54 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError, Subject, ReplaySubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { map, catchError} from 'rxjs/operators';
 import { User } from '../models/User';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators'; 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL ="http://localhost:3000";
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  selectedUser = new ReplaySubject<User>(1) ;
+  selectedUserSubject = new ReplaySubject<User>(1);
+
   constructor(private http: HttpClient) { }
 
-  selectUser(user: User) {
-    this.selectedUser.next(user);
-  }
-
-  getSelectedUser() {
-    return this.selectedUser.asObservable();
-  }
-
   getUsers(): Observable<User[]> {
-    return this.http.get(`${BASE_URL}/user`).pipe(
-      map((user: User[]) => {
-        return user;
-      }),
-      catchError((error) => {
-        return throwError(error);
-      })
-    );
+     return this.http.get(`${BASE_URL}/user`).pipe(
+       map((data: User[]) => {
+         return data;
+       },
+       catchError((error) => {
+         return throwError(error);
+       })
+       )
+     );
   }
 
-  editUser(user: User): Observable<any> {
+  createUser(user: User): Observable<any> {
+     return this.http.post(`${BASE_URL}/user`, user).pipe(
+       map((data: any) => {
+         return data;
+       })
+     )
+  }
+
+  updateUser(user: User): Observable<any> {
     return this.http.put(`${BASE_URL}/user/${user.id}`, user).pipe(
-      map((data) => {
+      map((data: any) => {
         return data;
-      }),
-      catchError((error) => {
-        return throwError(error);
       })
     );
   }
 
-  deleteUser(user: User): Observable<any> {
-    return this.http.delete(`${BASE_URL}/user/${user.id}`).pipe(
-      map((data) => {
+  deleteUser(id: User) {
+    return this.http.delete(`${BASE_URL}/user/${id}`).pipe(
+      map((data: any) => {
         return data;
-      }),
-      catchError((error) => {
-        return throwError(error);
       })
     );
   }
+
 }

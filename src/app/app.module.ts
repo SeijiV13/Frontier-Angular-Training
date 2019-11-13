@@ -3,20 +3,28 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './core/containers/home/home.component';
-import { UserListComponent } from './core/components/user-list/user-list.component';
-import { CardContainerComponent } from './shared/components/card-container/card-container.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './core/containers/home/home.module';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { EditUserComponent } from './core/containers/edit-user/edit-user.component';
+
+import { NgxsModule } from '@ngxs/store';
+import { UserState } from './core/states/user.state';
 @NgModule({
   declarations: [
     AppComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HomeModule
+    FormsModule,
+    ReactiveFormsModule,
+    HomeModule,
+    NgxsModule.forRoot([
+      UserState
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

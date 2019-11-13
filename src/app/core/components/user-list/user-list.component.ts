@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/shared/models/User';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Store } from '@ngxs/store';
+import { SelectUser, DeleteUser } from '../../actions/user.action';
 
 @Component({
   selector: 'app-user-list',
@@ -9,24 +11,23 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @Input() users: User[] = [];
-  @Output() emitSelectedUser = new EventEmitter();
-  constructor(private router: Router, private userService: UserService) { }
+  @Input() users: User[];
+  constructor(private router: Router,
+              private userService: UserService,
+              private store: Store) { }
 
   ngOnInit() {
   }
 
-  getSelectedUser(){
-    this.emitSelectedUser.emit(this.users[0]);
-  }
-
   changeRoute(route, user: User) {
-    this.userService.selectUser(user);
-    this.router.navigate([route]);
+    this.store.dispatch(new SelectUser(user)).subscribe(() => {
+      this.router.navigate([route]);
+    });
   }
 
-  deleteUser(user: User) {
-     this.emitSelectedUser.emit({ user, action : 'delete' });
+  deleteUser(id: string) {
+    this.store.dispatch(new DeleteUser(id)).subscribe();
   }
+
 
 }
