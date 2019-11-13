@@ -1,5 +1,19 @@
+<h3 *ngIf="checkRouter() === 'create'">Create User</h3>
+<h3 *ngIf="checkRouter() === 'edit'">Edit User</h3>
+<hr>
 <form [formGroup]="userForm">
-    <input formControlName="firstName" placeholder="First Name" class="form-control">
-    <input formControlName="middleName" placeholder="Middle Name" class="form-control">
-    <input formControlName="lastName" placeholder="LastName" class="form-control">
+    <div class="form-group">
+        <input formControlName="firstName" placeholder="First Name" class="form-control">  
+    </div>
+    <div class="form-group">
+        <input formControlName="middleName" placeholder="Middle Name" class="form-control">
+    </div>
+    <div class="form-group">
+        <input formControlName="lastName" placeholder="LastName" class="form-control"> 
+     </div>
+    <br>
+    <button *ngIf="checkRouter() === 'create'" class="btn btn-default" (click)="submit()">Create User</button>
+    <button *ngIf="checkRouter() === 'edit'" class="btn btn-default" (click)="submit()">Edit User</button>
+
+    <button style="float:right" class="btn btn-link" (click)="back()">Back</button>
 </form>

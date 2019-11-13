@@ -12,14 +12,14 @@
      </thead>
      <tbody>
          <tr *ngFor="let data of users; let i = index">
-          <th scope="row">{{data?.id}}</th>
+          <th scope="row">{{i + 1}}</th>
           <td>{{data?.firstName}}</td>
           <td>{{data?.middleName}}</td>
           <td>{{data?.lastName}}</td>
           <td>
               <button (click)="changeRoute('edit', data)" class="btn btn-default">Edit</button>
               &nbsp;
-              <button (click)="deleteUser(data)" class="btn btn-danger">Delete</button>
+              <button (click)="deleteUser(data.id)" class="btn btn-danger">Delete</button>
           </td>
          </tr>
      </tbody>

@@ -7,6 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeModule } from './core/containers/home/home.module';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EditUserComponent } from './core/containers/edit-user/edit-user.component';
+
+import { NgxsModule } from '@ngxs/store';
+import { UserState } from './core/states/user.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,10 @@ import { EditUserComponent } from './core/containers/edit-user/edit-user.compone
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HomeModule
+    HomeModule,
+    NgxsModule.forRoot([
+      UserState
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
